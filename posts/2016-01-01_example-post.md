@@ -20,8 +20,7 @@ Venison pork loin meatball ham beef ribeye.
 ### Le Code
 
 ```
-def bacon(yum)
-  return 'mmm'
+Sum({[Turnover]*$(vYTD)} [#Turnover Sales Excl_ VAT EUR])
 ```
 
 ### Lists
