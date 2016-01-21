@@ -100,7 +100,8 @@ var CMS = {
 		}
 	},
 
-	renderPage: function(title) {
+        renderPage: function(title) {
+	        CMS.pages.sort(function(a,b) {return a.date - b.date});
 		CMS.pages.forEach(function(page){
 			if(page.title == title) {
 
@@ -133,7 +134,8 @@ var CMS = {
 		CMS.renderFooter();
 	},
 
-	renderPosts: function() {
+        renderPosts: function() {
+	        CMS.posts.sort(function(a,b) {return a.date - b.date});
 		CMS.posts.forEach(function(post){
 			var tpl = $('#post-template').html(),
 				$tpl = $(tpl);
@@ -202,15 +204,18 @@ var CMS = {
 		contentObj.date = date;
 
 		// Get content info
-		var infoData = data[1].split('\n');
+		var infoData = data[1].split(/[\n\r]+/);
 
 		$.each(infoData, function(k, v) {
 			if(v.length) {
 				v.replace(/^\s+|\s+$/g, '').trim();
 				var i = v.split(':');
-				var val = i[1];
+				var val = v.slice(v.indexOf(':')+1);
 				k = i[0];
-				contentObj[k] = val.trim();
+				
+				val = (k == 'date' ? (new Date(val)) : val);
+
+				contentObj[k] = (val.trim ? val.trim() : val);
 			}
 		});
 
